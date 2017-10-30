@@ -27,12 +27,12 @@ public class BinaryPuzzleTests {
     public void setRowsWithPuzzleSize6ShouldReturnPuzzleInstanceWithSpecifiedFields() {
         // Arrange
         List<Row> rows = Arrays.asList(
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty()
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty()
         );
 
         // Act
@@ -59,13 +59,13 @@ public class BinaryPuzzleTests {
     public void setRowsWithAmountOfRowsThatExceedsPuzzleSizeShouldThrowAnException() {
         // Arrange
         List<Row> rows = Arrays.asList(
-                (new Row()),
-                (new Row()),
-                (new Row()),
-                (new Row()),
-                (new Row()),
-                (new Row()),
-                (new Row())
+                (new Row(6)),
+                (new Row(6)),
+                (new Row(6)),
+                (new Row(6)),
+                (new Row(6)),
+                (new Row(6)),
+                (new Row(6))
         );
 
         // Assert
@@ -80,8 +80,8 @@ public class BinaryPuzzleTests {
     public void setRowsWithAmountOfRowsThatIsBelowPuzzleSizeShouldThrowAnException() {
         // Arrange
         List<Row> rows = Arrays.asList(
-                (new Row()),
-                (new Row())
+                (new Row(0)),
+                (new Row(0))
         );
 
         // Assert
@@ -96,12 +96,12 @@ public class BinaryPuzzleTests {
     public void setRowsWithRowContainingTooManyFieldsShouldThrowAnException() {
         // Arrange
         List<Row> rows = Arrays.asList(
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty()
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
+                (new Row(7)).addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty()
         );
 
         // Assert
@@ -116,12 +116,12 @@ public class BinaryPuzzleTests {
     public void setRowsWithRowContainingTooLittleFieldsShouldThrowAnException() {
         // Arrange
         List<Row> rows = Arrays.asList(
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty(),
-                (new Row()).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty()
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty(),
+                (new Row(2)).addFieldEmpty().addFieldEmpty(),
+                (new Row(6)).addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty()
         );
 
         // Assert

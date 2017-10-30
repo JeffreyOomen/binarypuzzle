@@ -1,24 +1,27 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Vector;
 
 public class Row {
-    private List<FieldValue> fieldValues;
+    private Vector<FieldValue> fieldValues;
 
-    public Row() {
-        this.fieldValues = new ArrayList<>();
+    public Row(int size) {
+        this.fieldValues = new Vector<>();
+        this.fieldValues.setSize(size);
+        Collections.fill(this.fieldValues, FieldValue.ZERO);
     }
 
-    public Row(List<FieldValue> fieldValues) {
+    public Row(Vector<FieldValue> fieldValues) {
         this.fieldValues = fieldValues;
+        this.fieldValues.setSize(2);
     }
 
-    public List<FieldValue> getFieldValues() {
+    public Vector<FieldValue> getFieldValues() {
         return fieldValues;
     }
 
-    public void setFieldValues(List<FieldValue> fieldValues) {
+    public void setFieldValues(Vector<FieldValue> fieldValues) {
         this.fieldValues = fieldValues;
     }
 
@@ -28,7 +31,7 @@ public class Row {
     }
 
     public Row addFieldValue(int index, FieldValue fieldValue) {
-        this.fieldValues.add(index, fieldValue);
+        this.fieldValues.set(index, fieldValue);
         return this;
     }
 
@@ -38,7 +41,7 @@ public class Row {
     }
 
     public Row addFieldEmpty(int index) {
-        this.fieldValues.add(index, FieldValue.EMPTY);
+        this.fieldValues.set(index, FieldValue.EMPTY);
         return this;
     }
 
@@ -48,7 +51,7 @@ public class Row {
     }
 
     public Row addFieldZero(int index) {
-        this.fieldValues.add(index, FieldValue.ZERO);
+        this.fieldValues.set(index, FieldValue.ZERO);
         return this;
     }
 
@@ -58,7 +61,7 @@ public class Row {
     }
 
     public Row addFieldOne(int index) {
-        this.fieldValues.add(index, FieldValue.ONE);
+        this.fieldValues.set(index, FieldValue.ONE);
         return this;
     }
 
