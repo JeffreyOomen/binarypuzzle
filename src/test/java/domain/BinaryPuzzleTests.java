@@ -1,9 +1,11 @@
 package domain;
 
+import exceptions.FieldsEludedException;
+import exceptions.FieldsExceededException;
+import exceptions.NoRowAvailableException;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.Collections;
 
@@ -14,9 +16,6 @@ import static org.hamcrest.core.Is.is;
 public class BinaryPuzzleTests {
     private Puzzle binaryPuzzle;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Before
     public void setUp() {
         this.binaryPuzzle = BinaryPuzzle.getInstance(6);
@@ -24,6 +23,7 @@ public class BinaryPuzzleTests {
 
     @Test
     public void setRowsWithPuzzleSize6ShouldReturnPuzzleInstanceWithSpecifiedFields() {
+        // Act
         this.binaryPuzzle.instantiateRow().addEmpty().addEmpty().addOne().addEmpty().addEmpty().addEmpty();
         this.binaryPuzzle.instantiateRow().addZero().addZero().addEmpty().addOne().addEmpty().addEmpty();
         this.binaryPuzzle.instantiateRow().addZero().addEmpty().addEmpty().addEmpty().addEmpty().addEmpty();
@@ -47,67 +47,39 @@ public class BinaryPuzzleTests {
         assertThat(oneOccurrences, is(3));
     }
 
-//    // TODO eigen exceptie hiervoor maken?
-//    @Test(expected = IllegalArgumentException.class)
-//    public void setRowsWithAmountOfRowsThatExceedsPuzzleSizeShouldThrowAnException() {
-//        // Arrange
-//        this.binaryPuzzle.instantiateRow();
-//        this.binaryPuzzle.instantiateRow();
-//        this.binaryPuzzle.instantiateRow();
-//        this.binaryPuzzle.instantiateRow();
-//        this.binaryPuzzle.instantiateRow();
-//        this.binaryPuzzle.instantiateRow();
-//        this.binaryPuzzle.instantiateRow();
-//    }
-//
-//    @Test
-//    public void setRowsWithAmountOfRowsThatIsBelowPuzzleSizeShouldThrowAnException() {
-//        // Arrange
-//        this.binaryPuzzle.instantiateRow();
-//        this.binaryPuzzle.instantiateRow();
-//
-//        // Assert
-//        this.expectedException.expect(IllegalArgumentException.class);
-//        this.expectedException.expectMessage("Too little rows, there should be 6 rows.");
-//    }
-//
-//    @Test
-//    public void setRowsWithRowContainingTooManyFieldsShouldThrowAnException() {
-//        // Arrange
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty();
-//
-//        // Assert
-//        this.expectedException.expect(IllegalArgumentException.class);
-//        this.expectedException.expectMessage("Row #3 should contain 6 field values, but there are 7 found.");
-//    }
-//
-//    @Test
-//    public void setRowsWithRowContainingTooLittleFieldsShouldThrowAnException() {
-//        // Arrange
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldZero().addFieldZero().addFieldEmpty().addFieldOne().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldZero().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty();
-//        this.binaryPuzzle.instantiateRow().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldEmpty().addFieldZero().addFieldEmpty();
-//
-//        // Assert
-//        this.expectedException.expect(IllegalArgumentException.class);
-//        this.expectedException.expectMessage("Row #5 should contain 6 field values, but there are 2 found.");
-//    }
-//
-//    @Test
-//    public void setRowsWithNullValueShouldThrowAnException() {
-//        // Assert
-//        this.expectedException.expect(NullPointerException.class);
-//        this.expectedException.expectMessage("The rows variable is NULL, but should contain 6 rows.");
-//
-//        // Act
-//        this.binaryPuzzle.setRows(null);
-//    }
+    @Test(expected = FieldsExceededException.class)
+    public void instantiateRowWithTooManyFieldsShouldThrowAnFieldsExceededException() {
+        // Act
+        this.binaryPuzzle.instantiateRow().addEmpty().addEmpty().addOne().addEmpty().addZero().addEmpty().addEmpty();
+    }
+
+    @Test(expected = FieldsEludedException.class)
+    public void instantiateRowWithTooLittleFieldsShouldThrowAnFieldsEludedException() {
+        // Act
+        this.binaryPuzzle.instantiateRow().addEmpty().addEmpty().addOne().addEmpty().addZero();
+        this.binaryPuzzle.instantiateRow().addEmpty().addEmpty().addEmpty().addEmpty().addEmpty();
+    }
+
+    @Test(expected = NoRowAvailableException.class)
+    public void addEmptyToPuzzleWithoutInstantiatingARowFirstShouldThrowAnNoRowAvailableException() {
+        // Act
+        this.binaryPuzzle.addEmpty();
+    }
+
+    @Test(expected = NoRowAvailableException.class)
+    public void addZeroToPuzzleWithoutInstantiatingARowFirstShouldThrowAnNoRowAvailableException() {
+        // Act
+        this.binaryPuzzle.addZero();
+    }
+
+    @Test(expected = NoRowAvailableException.class)
+    public void addOneToPuzzleWithoutInstantiatingARowFirstShouldThrowAnNoRowAvailableException() {
+        // Act
+        this.binaryPuzzle.addOne();
+    }
+
+    @After
+    public void tearDown() {
+        BinaryPuzzle.destroyInstance();
+    }
 }

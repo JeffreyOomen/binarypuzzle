@@ -1,5 +1,9 @@
 package domain;
 
+import exceptions.FieldsEludedException;
+import exceptions.FieldsExceededException;
+import exceptions.NoRowAvailableException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +27,12 @@ public class BinaryPuzzle implements Puzzle {
         return binaryPuzzle;
     }
 
+    public static void destroyInstance() {
+        if (binaryPuzzle != null) {
+            binaryPuzzle = null;
+        }
+    }
+
     public int getSize() {
         return size;
     }
@@ -42,29 +52,42 @@ public class BinaryPuzzle implements Puzzle {
     }
 
     public BinaryPuzzle instantiateRow() {
+        this.canInstantiateRowCheck();
         this.temporaryRow = new BinaryRow();
         this.rows.add(this.temporaryRow);
         return this;
     }
 
     public BinaryPuzzle addEmpty() {
+        this.canAddFieldToRowCheck();
         this.temporaryRow.addEmpty();
         return this;
     }
 
     public BinaryPuzzle addZero() {
+        this.canAddFieldToRowCheck();
         this.temporaryRow.addZero();
         return this;
     }
 
     public BinaryPuzzle addOne() {
+        this.canAddFieldToRowCheck();
         this.temporaryRow.addOne();
         return this;
     }
 
+    private void canInstantiateRowCheck() {
+        if (this.temporaryRow != null && this.temporaryRow.getFieldValues().size() < size)
+            throw new FieldsEludedException("The maximum number of fields in the previous row has not been reached yet.");
+    }
+
+    private void canAddFieldToRowCheck() {
+        if (this.temporaryRow == null)
+            throw new NoRowAvailableException("There is no row instantiated to add the field to.");
+    }
+
     private class BinaryRow implements Row {
         private List<FieldValue> fieldValues;
-        private int nextFieldValuesIndex;
 
         public BinaryRow() {
             this.fieldValues = new ArrayList<>(getSize());
@@ -72,7 +95,6 @@ public class BinaryPuzzle implements Puzzle {
 
         public BinaryRow(List<FieldValue> fieldValues) {
             this.fieldValues = fieldValues;
-            this.nextFieldValuesIndex = 0;
         }
 
         public List<FieldValue> getFieldValues() {
@@ -94,6 +116,7 @@ public class BinaryPuzzle implements Puzzle {
         }
 
         public BinaryRow addEmpty() {
+            this.fieldAmountCheckForAdd();
             this.fieldValues.add(FieldValue.EMPTY);
             return this;
         }
@@ -104,6 +127,7 @@ public class BinaryPuzzle implements Puzzle {
         }
 
         public BinaryRow addZero() {
+            this.fieldAmountCheckForAdd();
             this.fieldValues.add(FieldValue.ZERO);
             return this;
         }
@@ -114,6 +138,7 @@ public class BinaryPuzzle implements Puzzle {
         }
 
         public BinaryRow addOne() {
+            this.fieldAmountCheckForAdd();
             this.fieldValues.add(FieldValue.ONE);
             return this;
         }
@@ -137,27 +162,10 @@ public class BinaryPuzzle implements Puzzle {
 
             System.out.println(rowRepresentation);
         }
-    }
 
-//    class PuzzleValidator {
-//        public void validateRows(List<Row> rows) {
-//            if (rows == null) {
-//                throw new NullPointerException("The rows variable is NULL, but should contain " + size + " rows.");
-//            }
-//
-//            if (rows.size() > size) {
-//                throw new IllegalArgumentException("Too many rows, there should be " + size + " rows.");
-//            }
-//
-//            if (rows.size() < size) {
-//                throw new IllegalArgumentException("Too little rows, there should be " + size + " rows.");
-//            }
-//
-//            for (int rowIndex = 0; rowIndex < size; rowIndex++) {
-//                if (rows.get(rowIndex).getFieldValues().size() != size) {
-//                    throw new IllegalArgumentException("Row #" + (rowIndex + 1) + " should contain " + size + " field values, but there are " + rows.get(rowIndex).getFieldValues().size() + " found.");
-//                }
-//            }
-//        }
-//    }
+        private void fieldAmountCheckForAdd() {
+            if (this.fieldValues.size() + 1 > size)
+                throw new FieldsExceededException("The maximum number of fields has been reached.");
+        }
+    }
 }
