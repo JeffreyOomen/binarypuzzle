@@ -1,82 +1,22 @@
 package domain;
 
-import java.util.Collections;
-import java.util.Vector;
+import java.util.List;
 
-public class Row {
-    private Vector<FieldValue> fieldValues;
+public interface Row {
 
-    public Row(int size) {
-        this.fieldValues = new Vector<>();
-        this.fieldValues.setSize(size);
-        Collections.fill(this.fieldValues, FieldValue.ZERO);
-    }
+    List<FieldValue> getFieldValues();
 
-    public Row(Vector<FieldValue> fieldValues) {
-        this.fieldValues = fieldValues;
-        this.fieldValues.setSize(2);
-    }
+    void setFieldValues(List<FieldValue> fieldValues);
 
-    public Vector<FieldValue> getFieldValues() {
-        return fieldValues;
-    }
+    Row addFieldValue(FieldValue fieldValue);
 
-    public void setFieldValues(Vector<FieldValue> fieldValues) {
-        this.fieldValues = fieldValues;
-    }
+    Row addFieldValue(int index, FieldValue fieldValue);
 
-    public Row addFieldValue(FieldValue fieldValue) {
-        this.fieldValues.add(fieldValue);
-        return this;
-    }
+    Row addEmpty();
 
-    public Row addFieldValue(int index, FieldValue fieldValue) {
-        this.fieldValues.set(index, fieldValue);
-        return this;
-    }
+    Row addZero();
 
-    public Row addFieldEmpty() {
-        this.fieldValues.add(FieldValue.EMPTY);
-        return this;
-    }
+    Row addOne();
 
-    public Row addFieldEmpty(int index) {
-        this.fieldValues.set(index, FieldValue.EMPTY);
-        return this;
-    }
-
-    public Row addFieldZero() {
-        this.fieldValues.add(FieldValue.ZERO);
-        return this;
-    }
-
-    public Row addFieldZero(int index) {
-        this.fieldValues.set(index, FieldValue.ZERO);
-        return this;
-    }
-
-    public Row addFieldOne() {
-        this.fieldValues.add(FieldValue.ONE);
-        return this;
-    }
-
-    public Row addFieldOne(int index) {
-        this.fieldValues.set(index, FieldValue.ONE);
-        return this;
-    }
-
-    public void printRow() {
-        String rowRepresentation = "";
-        for (FieldValue fieldValue : this.fieldValues) {
-            if (fieldValue == FieldValue.EMPTY) {
-                rowRepresentation += " -1 ";
-            } else if (fieldValue == FieldValue.ONE) {
-                rowRepresentation += "  1 ";
-            } else {
-                rowRepresentation += "  0 ";
-            }
-        }
-
-        System.out.println(rowRepresentation);
-    }
+    void printRow();
 }
