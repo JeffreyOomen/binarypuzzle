@@ -74,4 +74,25 @@ public class BinaryPuzzleCracker {
 
         return filteredRowCombinations;
     }
+
+    public boolean complyToRowConstraints(Row row) {
+        for (int index = 0; index < row.getFieldValues().size(); index++) {
+            if (row.getFieldValues().get(index) == FieldValue.EMPTY) {
+                continue;
+            }
+
+            if (index == 0 || index == row.getFieldValues().size() - 1) {
+                continue;
+            }
+
+            FieldValue currentValue = row.getFieldValues().get(index);
+            FieldValue previousValue = row.getFieldValues().get(index - 1);
+            FieldValue nexValue = row.getFieldValues().get(index + 1);
+            if (currentValue == previousValue && currentValue == nexValue) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

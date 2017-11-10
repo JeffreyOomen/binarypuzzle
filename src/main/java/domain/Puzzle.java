@@ -14,6 +14,8 @@ public interface Puzzle {
 
     Puzzle instantiateRow();
 
+    Row instantiateAndReturnRow();
+
     Puzzle addEmpty();
 
     Puzzle addZero();

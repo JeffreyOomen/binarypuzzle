@@ -3,7 +3,6 @@ package domain;
 import exceptions.FieldsEludedException;
 import exceptions.FieldsExceededException;
 import exceptions.NoRowAvailableException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -76,10 +75,5 @@ public class BinaryPuzzleTests {
     public void addOneToPuzzleWithoutInstantiatingARowFirstShouldThrowAnNoRowAvailableException() {
         // Act
         this.binaryPuzzle.addOne();
-    }
-
-    @After
-    public void tearDown() {
-        BinaryPuzzle.destroyInstance();
     }
 }

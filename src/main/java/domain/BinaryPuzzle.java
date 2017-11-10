@@ -5,7 +5,6 @@ import exceptions.FieldsExceededException;
 import exceptions.NoRowAvailableException;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,17 +21,7 @@ public class BinaryPuzzle implements Puzzle {
     }
 
     public static BinaryPuzzle getInstance(int size) {
-        if (binaryPuzzle == null) {
-            binaryPuzzle = new BinaryPuzzle(size);
-        }
-
-        return binaryPuzzle;
-    }
-
-    public static void destroyInstance() {
-        if (binaryPuzzle != null) {
-            binaryPuzzle = null;
-        }
+        return new BinaryPuzzle(size);
     }
 
     public int getSize() {
