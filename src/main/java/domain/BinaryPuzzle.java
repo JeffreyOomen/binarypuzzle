@@ -5,6 +5,8 @@ import exceptions.FieldsExceededException;
 import exceptions.NoRowAvailableException;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class BinaryPuzzle implements Puzzle {
@@ -53,14 +55,26 @@ public class BinaryPuzzle implements Puzzle {
 
     public BinaryPuzzle instantiateRow() {
         this.canInstantiateRowCheck();
-        this.temporaryRow = new BinaryRow();
+        this.temporaryRow = new BinaryRow(false);
         this.rows.add(this.temporaryRow);
         return this;
+    }
+
+    public Row instantiateAndReturnRow() {
+        this.canInstantiateRowCheck();
+        this.temporaryRow = new BinaryRow(true);
+        return this.temporaryRow;
     }
 
     public BinaryPuzzle addEmpty() {
         this.canAddFieldToRowCheck();
         this.temporaryRow.addEmpty();
+        return this;
+    }
+
+    public BinaryPuzzle addEmpty(int index) {
+        this.canAddFieldToRowCheck();
+        this.temporaryRow.addEmpty(index);
         return this;
     }
 
@@ -70,9 +84,21 @@ public class BinaryPuzzle implements Puzzle {
         return this;
     }
 
+    public BinaryPuzzle addZero(int index) {
+        this.canAddFieldToRowCheck();
+        this.temporaryRow.addZero(index);
+        return this;
+    }
+
     public BinaryPuzzle addOne() {
         this.canAddFieldToRowCheck();
         this.temporaryRow.addOne();
+        return this;
+    }
+
+    public BinaryPuzzle addOne(int index) {
+        this.canAddFieldToRowCheck();
+        this.temporaryRow.addOne(index);
         return this;
     }
 
@@ -89,8 +115,12 @@ public class BinaryPuzzle implements Puzzle {
     private class BinaryRow implements Row {
         private List<FieldValue> fieldValues;
 
-        public BinaryRow() {
-            this.fieldValues = new ArrayList<>(getSize());
+        public BinaryRow(boolean shouldFill) {
+            if (!shouldFill) {
+                this.fieldValues = new ArrayList<>();
+            } else {
+                this.fieldValues = new ArrayList<>(Collections.nCopies(getSize(), FieldValue.ZERO));
+            }
         }
 
         public BinaryRow(List<FieldValue> fieldValues) {
@@ -122,7 +152,7 @@ public class BinaryPuzzle implements Puzzle {
         }
 
         public BinaryRow addEmpty(int index) {
-            this.fieldValues.add(index, FieldValue.EMPTY);
+            this.fieldValues.set(index, FieldValue.EMPTY);
             return this;
         }
 
@@ -133,7 +163,7 @@ public class BinaryPuzzle implements Puzzle {
         }
 
         public BinaryRow addZero(int index) {
-            this.fieldValues.add(index, FieldValue.ZERO);
+            this.fieldValues.set(index, FieldValue.ZERO);
             return this;
         }
 
@@ -144,7 +174,7 @@ public class BinaryPuzzle implements Puzzle {
         }
 
         public BinaryRow addOne(int index) {
-            this.fieldValues.add(index, FieldValue.ONE);
+            this.fieldValues.set(index, FieldValue.ONE);
             return this;
         }
 

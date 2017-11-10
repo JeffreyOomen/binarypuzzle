@@ -14,9 +14,15 @@ public interface Row {
 
     Row addEmpty();
 
+    Row addEmpty(int index);
+
     Row addZero();
 
+    Row addZero(int index);
+
     Row addOne();
+
+    Row addOne(int index);
 
     void printRow();
 }
