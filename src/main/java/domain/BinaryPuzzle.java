@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryPuzzle implements Puzzle {
-    private int size;
     private List<Row> rows;
     private Row temporaryRow;
+    private int size;
 
     // Private Constructor
     private BinaryPuzzle(int size) {
-        this.size = size;
         this.rows = new ArrayList<>();
+        this.size = size;
     }
 
     public static BinaryPuzzle getInstance(int size) {
