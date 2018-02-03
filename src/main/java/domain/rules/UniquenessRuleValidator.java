@@ -5,9 +5,9 @@ import domain.Row;
 
 import java.util.List;
 
-public class UniquenessRule extends RuleValidator {
+public class UniquenessRuleValidator extends RuleValidator {
 
-    public UniquenessRule(BinaryPuzzle binaryPuzzle) {
+    public UniquenessRuleValidator(BinaryPuzzle binaryPuzzle) {
         super(binaryPuzzle);
     }
 

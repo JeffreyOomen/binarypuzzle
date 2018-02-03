@@ -6,9 +6,9 @@ import domain.Row;
 
 import java.util.List;
 
-public class ConsecutiveRule extends RuleValidator {
+public class ConsecutiveRuleValidator extends RuleValidator {
 
-    public ConsecutiveRule(BinaryPuzzle binaryPuzzle) {
+    public ConsecutiveRuleValidator(BinaryPuzzle binaryPuzzle) {
         super(binaryPuzzle);
     }
 
@@ -55,24 +55,26 @@ public class ConsecutiveRule extends RuleValidator {
      * @return true if the row does comply to the constraints, false if otherwise.
      */
     private boolean checkRowAgainstConsecutiveRule(Row row) {
-        for (int index = 0; index < row.getFieldValues().size(); index++) {
-            if (row.getFieldValues().get(index) == FieldValue.EMPTY) {
-                continue;
-            }
-
-            // Skip beginning and end, because there is nothing to be compared yet
-            // if you're on the first row, same for the last row.
-            if (index == 0 || index == row.getFieldValues().size() - 1) {
-                continue;
-            }
-
-            FieldValue currentValue = row.getFieldValues().get(index);
-            FieldValue previousValue = row.getFieldValues().get(index - 1);
-            FieldValue nexValue = row.getFieldValues().get(index + 1);
-            if (currentValue == previousValue && currentValue == nexValue) {
-                return false;
-            }
-        }
+//        for (int index = 0; index < row.getFieldValues().size(); index++) {
+//            if (row.getFieldValues().get(index) == FieldValue.EMPTY) {
+//                continue;
+//            }
+//
+//            // Skip beginning and end, because there is nothing to be compared yet
+//            // if you're on the first row, same for the last row.
+//            if (index == 0 || index == row.getFieldValues().size() - 1) {
+//                continue;
+//            }
+//
+//            FieldValue currentValue = row.getFieldValues().get(index);
+//            FieldValue previousValue = row.getFieldValues().get(index - 1);
+//            FieldValue nexValue = row.getFieldValues().get(index + 1);
+//            if (currentValue == previousValue && currentValue == nexValue) {
+//                return false;
+//            }
+//        }
+//
+//        return true;
 
         return true;
     }

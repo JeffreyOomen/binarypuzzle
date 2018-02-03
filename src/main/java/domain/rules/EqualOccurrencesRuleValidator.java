@@ -8,9 +8,9 @@ import domain.Row;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EqualOccurrencesRule extends RuleValidator {
+public class EqualOccurrencesRuleValidator extends RuleValidator {
 
-    public EqualOccurrencesRule(BinaryPuzzle binaryPuzzle) {
+    public EqualOccurrencesRuleValidator(BinaryPuzzle binaryPuzzle) {
         super(binaryPuzzle);
     }
 

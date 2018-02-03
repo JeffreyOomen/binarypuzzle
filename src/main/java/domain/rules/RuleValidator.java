@@ -9,15 +9,15 @@ import java.util.List;
 
 public class RuleValidator {
     private BinaryPuzzle binaryPuzzle;
-    private ConsecutiveRule consecutiveRule;
-    private UniquenessRule uniquenessRule;
-    private EqualOccurrencesRule equalOccurrencesRule;
+    private ConsecutiveRuleValidator consecutiveRuleValidator;
+    private UniquenessRuleValidator uniquenessRule;
+    private EqualOccurrencesRuleValidator equalOccurrencesRuleValidator;
 
     public RuleValidator(BinaryPuzzle binaryPuzzle) {
         this.binaryPuzzle = binaryPuzzle;
-        this.consecutiveRule = new ConsecutiveRule(this.binaryPuzzle);
-        this.uniquenessRule = new UniquenessRule(this.binaryPuzzle);
-        this.equalOccurrencesRule = new EqualOccurrencesRule(this.binaryPuzzle);
+        this.consecutiveRuleValidator = new ConsecutiveRuleValidator(this.binaryPuzzle);
+        this.uniquenessRule = new UniquenessRuleValidator(this.binaryPuzzle);
+        this.equalOccurrencesRuleValidator = new EqualOccurrencesRuleValidator(this.binaryPuzzle);
     }
 
     public BinaryPuzzle getBinaryPuzzle() {
@@ -25,9 +25,9 @@ public class RuleValidator {
     }
 
     public boolean complyToAllRules() {
-        boolean complyConsecutiveRule = this.consecutiveRule.complyToConsecutiveRule();
+        boolean complyConsecutiveRule = this.consecutiveRuleValidator.complyToConsecutiveRule();
         boolean complyUniquenessRule = this.uniquenessRule.complyToUniquenessRule();
-        boolean complyEqualOccurrencesRule = this.equalOccurrencesRule.complyToEqualOccurrencesRule();
+        boolean complyEqualOccurrencesRule = this.equalOccurrencesRuleValidator.complyToEqualOccurrencesRule();
 
         return complyConsecutiveRule && complyUniquenessRule && complyEqualOccurrencesRule;
     }
