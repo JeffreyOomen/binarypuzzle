@@ -1,9 +1,4 @@
-package domain.rules;
-
-import domain.BinaryRow;
-import domain.FieldValue;
-import domain.Puzzle;
-import domain.Row;
+package domain;
 
 import java.util.*;
 
@@ -31,7 +26,7 @@ public class PuzzleRuleValidator {
      */
     public boolean adhereToRulesHorizontally(List<Row> rows) {
         for (Row row : rows) {
-            if (this.adhereConsecutiveRule(row) || this.adhereOccurrencesRule(row)) {
+            if (!this.adhereConsecutiveRule(row) || !this.adhereOccurrencesRule(row)) {
                 return false;
             }
         }

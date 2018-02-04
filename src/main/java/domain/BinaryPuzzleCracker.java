@@ -1,7 +1,5 @@
 package domain;
 
-import domain.rules.RuleValidator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -122,7 +120,7 @@ public class BinaryPuzzleCracker {
      * @return true if the binary puzzle does comply to the rules, false otherwise.
      */
     public boolean complyToAllRules() {
-        RuleValidator ruleValidator = new RuleValidator(this.binaryPuzzle);
-        return ruleValidator.complyToAllRules();
+        PuzzleRuleValidator ruleValidator = new PuzzleRuleValidator(this.binaryPuzzle);
+        return ruleValidator.adhereToPuzzleRules();
     }
 }
