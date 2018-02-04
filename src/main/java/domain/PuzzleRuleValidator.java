@@ -15,8 +15,7 @@ public class PuzzleRuleValidator {
      */
     public boolean adhereToPuzzleRules() {
         return this.adhereToRulesHorizontally(this.puzzle.getRows()) &&
-                this.adhereToRulesVertically(this.puzzle.getRows()) &&
-                this.adhereUniquenessRule(this.puzzle.getRows());
+                this.adhereToRulesVertically(this.puzzle.getRows());
     }
 
     /**
@@ -25,6 +24,10 @@ public class PuzzleRuleValidator {
      * @return True if all Horizontal Rules are adhered, false otherwise.
      */
     public boolean adhereToRulesHorizontally(List<Row> rows) {
+        if (!this.adhereUniquenessRule(rows)) {
+            return false;
+        }
+
         for (Row row : rows) {
             if (!this.adhereConsecutiveRule(row) || !this.adhereOccurrencesRule(row)) {
                 return false;
